@@ -144,7 +144,10 @@ export class JSONRPCClient<ClientParams = void>
     );
     if (response.result !== undefined && !response.error) {
       return response.result;
-    } else if (response.result === undefined && response.error) {
+    } else if (
+      (response.result === undefined || response.result === null) &&
+      response.error
+    ) {
       return Promise.reject(
         new JSONRPCErrorException(
           response.error.message,
